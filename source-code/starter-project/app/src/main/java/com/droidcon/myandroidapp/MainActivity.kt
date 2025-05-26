@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var localization: Localization
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,6 +39,8 @@ class MainActivity : AppCompatActivity() {
                 "LIGHT" -> false
                 else -> isSystemInDarkTheme() // Default to system theme
             }
+
+
 
             val view = LocalView.current
             if (!view.isInEditMode) { // Good practice for Composable previews

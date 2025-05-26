@@ -1,5 +1,6 @@
 package com.droidcon.myandroidapp.jokes.presentation.screens.preferences
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidcon.myandroidapp.core.domain.datasource.PreferencesDataSource
@@ -10,6 +11,7 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
+@Immutable
 data class PreferencesState(
     val selectedLanguage: String = "",
     val selectedTheme: String = "",

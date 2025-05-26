@@ -40,24 +40,20 @@ fun NavigationRoot(
         }
 
         composable<RandomJokesRoute.SelectedJoke>() {
-            val jokeId =  it.arguments?.getInt("jokeId")
-
-            jokeId?.let { jokeId ->
-                JokeDetailsScreenRoot(
-                    modifier = modifier,
-                    onGoBack = {
-                        navController.popBackStack()
-                    }
-                )
-            }
+            JokeDetailsScreenRoot(
+                modifier = modifier,
+                onGoBack = {
+                    navController.popBackStack()
+                }
+            )
         }
 
         composable<RandomJokesRoute.Preferences>() {
-           PreferencesScreenRoot(
-               onGoBack = {
-                   navController.popBackStack()
-               }
-           )
+            PreferencesScreenRoot(
+                onGoBack = {
+                    navController.popBackStack()
+                }
+            )
         }
     }
 }

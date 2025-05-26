@@ -1,5 +1,6 @@
 package com.droidcon.myandroidapp.jokes.presentation.screens.jokes_list
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.droidcon.myandroidapp.jokes.domain.JokesRepository
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@Immutable
 data class JokesListState(
     val jokes: List<Joke> = emptyList(),
     val loading: Boolean = false,
@@ -81,7 +83,7 @@ class JokesListViewModel @Inject constructor(
         viewModelScope.launch {
             repository.toggleFavorite(joke.id)
                 .onFailure { error ->
-                    _eventChannel.send(JokesListEvent.ShowError("Failed to update favorite status: ${error.localizedMessage}"))
+                    _eventChannel.send(JokesListEvent.ShowError("Failed to update favorite status: ${error.message}"))
                 }
         }
     }
@@ -124,7 +126,7 @@ class JokesListViewModel @Inject constructor(
                     setLoading(false, viaRefresh)
                 }
                 .onFailure { error ->
-                    val errorMessage = error.localizedMessage ?: "Network error. Using cached data."
+                    val errorMessage = error.message ?: "Network error. Using cached data."
                     _eventChannel.send(JokesListEvent.ShowError(errorMessage))
                     setLoading(false, viaRefresh)
                 }

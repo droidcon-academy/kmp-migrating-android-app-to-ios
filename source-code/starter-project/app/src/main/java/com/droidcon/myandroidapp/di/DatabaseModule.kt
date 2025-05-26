@@ -28,6 +28,6 @@ object DatabaseModule {
 
     @Provides
     fun provideJokesDao(database: JokesDatabase): JokesDao {
-        return database.jokesDao()
+        return database.jokesDao
     }
 }

@@ -26,9 +26,9 @@ class PreferencesDataSourceImpl @Inject constructor(
     }
 
     override fun getTheme(): Flow<AppTheme> = vault.dataStore.data
-            .map { preferences ->
-                preferences[Keys.THEME] ?: ""
-            }
+        .map { preferences ->
+            preferences[Keys.THEME] ?: ""
+        }
 
 
     override suspend fun putLanguage(value: AppLanguage) {

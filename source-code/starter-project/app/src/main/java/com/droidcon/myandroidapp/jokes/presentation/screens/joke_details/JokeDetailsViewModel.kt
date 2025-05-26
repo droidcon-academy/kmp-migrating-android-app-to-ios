@@ -1,5 +1,6 @@
 package com.droidcon.myandroidapp.jokes.presentation.screens.joke_details
 
+import androidx.compose.runtime.Immutable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +15,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
+@Immutable
 data class JokeDetailsState(
     val joke: Joke? = null,
     val loading: Boolean = false
@@ -81,7 +83,7 @@ class JokesDetailsViewModel @Inject constructor(
             repository.toggleFavorite(jokeId)
                 .onSuccess {
                     // Reload the joke to reflect the change
-                    jokeId.let { id -> loadJoke(id) }
+                    loadJoke(jokeId)
                 }
         }
     }

@@ -6,5 +6,5 @@ import com.droidcon.myandroidapp.jokes.data.model.JokeEntity
 
 @Database(entities = [JokeEntity::class], version = 2, exportSchema = false)
 abstract class JokesDatabase : RoomDatabase() {
-    abstract fun jokesDao(): JokesDao
+    abstract val jokesDao: JokesDao
 }
