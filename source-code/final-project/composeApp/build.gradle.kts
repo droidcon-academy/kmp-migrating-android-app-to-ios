@@ -1,4 +1,3 @@
-import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -45,6 +44,8 @@ kotlin {
             // DI
             implementation(libs.koin.android)
             implementation(libs.koin.androidx.compose)
+
+            // HttpClient
             implementation(libs.ktor.client.okhttp)
         }
         commonMain.dependencies {
@@ -107,11 +108,11 @@ kotlin {
 }
 
 android {
-    namespace = "com.droidcon.cmp"
+    namespace = "com.droidcon.simplejokes"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     defaultConfig {
-        applicationId = "com.droidcon.cmp"
+        applicationId = "com.droidcon.simplejokes"
         minSdk = libs.versions.android.minSdk.get().toInt()
         targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
