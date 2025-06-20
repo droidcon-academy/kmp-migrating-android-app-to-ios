@@ -1,4 +1,4 @@
-package com.droidcon
+package com.droidcon.simplejokes
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
@@ -9,7 +9,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.plant(Timber.DebugTree())
+        Timber.Forest.plant(Timber.DebugTree())
     }
 
 }

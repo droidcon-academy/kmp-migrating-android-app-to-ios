@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My Android App</string>
+    <string name="app_name">Simple Jokes</string>
     <string name="joke_details_screen_title">Joke Details Screen</string>
     <string name="tab_all_jokes">All Jokes</string>
     <string name="tab_favorites">Favorites</string>

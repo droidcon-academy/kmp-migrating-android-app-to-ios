@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.droidcon.myandroidapp"
+    namespace = "com.droidcon.simplejokes"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.droidcon.myandroidapp"
+        applicationId = "com.droidcon.simplejokes"
         minSdk = 26
         targetSdk = 35
         versionCode = 1
