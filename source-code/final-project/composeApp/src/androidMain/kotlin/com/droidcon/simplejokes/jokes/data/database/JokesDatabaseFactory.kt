@@ -11,6 +11,8 @@ actual class JokesDatabaseFactory(
         val appContext = context.applicationContext
         val dbFile = appContext.getDatabasePath(JokesDatabase.DB_NAME)
 
+        println("DB file path cmp: ${dbFile.absolutePath}")
+
         return Room.databaseBuilder(
             context = appContext,
             name = dbFile.absolutePath

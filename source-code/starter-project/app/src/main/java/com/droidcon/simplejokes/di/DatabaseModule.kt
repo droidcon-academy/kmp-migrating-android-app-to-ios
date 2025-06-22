@@ -18,10 +18,14 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideJokesDatabase(@ApplicationContext context: Context): JokesDatabase {
+        val dbFile = context.getDatabasePath(JokesDatabase.DB_NAME)
+
+        println("DB file path android: ${dbFile.absolutePath}")
+
         return Room.databaseBuilder(
-            context,
-            JokesDatabase::class.java,
-            "jokes_database"
+            context = context,
+            klass = JokesDatabase::class.java,
+            name = dbFile.absolutePath
         )
             .build()
     }
