@@ -8,14 +8,9 @@ actual class JokesDatabaseFactory(
     private val context: Context
 ) {
     actual fun create(): RoomDatabase.Builder<JokesDatabase> {
-        val appContext = context.applicationContext
-        val dbFile = appContext.getDatabasePath(JokesDatabase.DB_NAME)
-
-        println("DB file path cmp: ${dbFile.absolutePath}")
-
         return Room.databaseBuilder(
-            context = appContext,
-            name = dbFile.absolutePath
+            context = context.applicationContext,
+            name = JokesDatabase.DB_NAME
         )
     }
 }
