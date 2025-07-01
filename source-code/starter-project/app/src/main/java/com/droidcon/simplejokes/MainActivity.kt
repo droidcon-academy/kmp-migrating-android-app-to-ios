@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
 import com.droidcon.simplejokes.core.presentation.Localization
+import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
 import com.droidcon.simplejokes.ui.theme.SimpleJokesTheme
 import dagger.hilt.android.AndroidEntryPoint
 import jakarta.inject.Inject
@@ -40,28 +41,17 @@ class MainActivity : AppCompatActivity() {
                 else -> isSystemInDarkTheme() // Default to system theme
             }
 
-
-
-            val view = LocalView.current
-            if (!view.isInEditMode) { // Good practice for Composable previews
-                LaunchedEffect(useDarkTheme) {
-                    val window = (view.context as? Activity)?.window ?: this@MainActivity.window
-                    WindowInsetsControllerCompat(window, view).let { controller ->
-                        controller.isAppearanceLightStatusBars = !useDarkTheme
-                        controller.isAppearanceLightNavigationBars = !useDarkTheme
-                    }
-                }
-            }
-
-            LaunchedEffect(Unit) {
-                preferencesDataSource.getLanguage()
-                    .distinctUntilChanged()
-                    .collect { savedLanguageTag ->
-                        localization.updateLocale(savedLanguageTag)
-                    }
-            }
-
             SimpleJokesTheme(darkTheme = useDarkTheme) {
+                SetSystemBarAppearance(darkTheme = useDarkTheme)
+
+                LaunchedEffect(Unit) {
+                    preferencesDataSource.getLanguage()
+                        .distinctUntilChanged()
+                        .collect { savedLanguageTag ->
+                            localization.updateLocale(savedLanguageTag)
+                        }
+                }
+
                 NavigationRoot()
             }
         }
