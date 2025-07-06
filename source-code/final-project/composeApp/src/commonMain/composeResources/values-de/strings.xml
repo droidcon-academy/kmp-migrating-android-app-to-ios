@@ -3,7 +3,7 @@
     <string name="joke_details_screen_title">Witzdetails</string>
     <string name="tab_all_jokes">Alle Witze</string>
     <string name="tab_favorites">Favoriten</string>
-    <string name="jokes_list_title">Witzliste</string>
+    <string name="jokes_list_title">Witzliste - CMP</string>
     <string name="theme_label_dark">Dunkel</string>
     <string name="theme_lable_light">Hell</string>
     <string name="theme_label_default">Standard (Systemeinstellung folgen)</string>

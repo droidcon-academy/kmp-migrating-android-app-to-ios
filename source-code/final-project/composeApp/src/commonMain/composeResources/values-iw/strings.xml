@@ -3,7 +3,7 @@
     <string name="joke_details_screen_title">מסך פרטי הבדיחה</string>
     <string name="tab_all_jokes">כל הבדיחות</string>
     <string name="tab_favorites">מועדפים</string>
-    <string name="jokes_list_title">רשימת בדיחות</string>
+    <string name="jokes_list_title">CMP - רשימת בדיחות</string>
     <string name="theme_label_dark">כהה</string>
     <string name="theme_lable_light">בהיר</string>
     <string name="theme_label_default">ברירת מחדל (לפי המערכת)</string>
