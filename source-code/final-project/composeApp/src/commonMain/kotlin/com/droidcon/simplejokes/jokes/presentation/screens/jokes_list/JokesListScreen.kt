@@ -1,8 +1,6 @@
 package com.droidcon.simplejokes.jokes.presentation.screens.jokes_list
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -22,10 +20,8 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.ScaffoldDefaults
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
@@ -46,17 +42,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.droidcon.simplejokes.jokes.domain.model.Joke
-import multiplatform.network.cmptoast.ToastDuration
-import multiplatform.network.cmptoast.showToast
+import com.droidcon.simplejokes.core.presentation.SnackbarManager
+import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.koinInject
+import org.koin.compose.viewmodel.koinViewModel
 import simplejokes.composeapp.generated.resources.Res
 import simplejokes.composeapp.generated.resources.jokes_list_title
 import simplejokes.composeapp.generated.resources.preferences_title
 import simplejokes.composeapp.generated.resources.tab_all_jokes
 import simplejokes.composeapp.generated.resources.tab_favorites
-import org.jetbrains.compose.resources.stringResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-import org.koin.compose.viewmodel.koinViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -67,6 +61,7 @@ fun JokesListScreenRoot(
     onOpenPreferences: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val snackbarManager = koinInject<SnackbarManager>()
 
     LaunchedEffect(Unit) {
         viewModel.eventChannel.collect {
@@ -76,10 +71,7 @@ fun JokesListScreenRoot(
                 }
 
                 is JokesListEvent.ShowError -> {
-                    showToast(
-                        message = it.message,
-                        duration = ToastDuration.Short
-                    )
+                    snackbarManager.showMessage(it.message)
                 }
             }
         }

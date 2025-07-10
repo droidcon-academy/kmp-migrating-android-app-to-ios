@@ -13,7 +13,6 @@ androidx-testExt = "1.2.1"
 composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 kotlin = "2.2.0"
-cmptoast = "1.0.6"
 
 koin = "4.1.0"
 navigationCompose = "2.9.0-beta03"
@@ -78,9 +77,6 @@ androidx-foundation-android = { group = "androidx.compose.foundation", name = "f
 
 # Extended Icons Set for Material3 Design
 material-icons-extended = { module = "org.jetbrains.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
-
-# Show Toast in Compose Multiplatform
-cmptoast = { module = "network.chaintech:cmptoast", version.ref = "cmptoast" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

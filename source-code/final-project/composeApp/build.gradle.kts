@@ -83,8 +83,6 @@ kotlin {
 
             // Enable Icons for Material3 Design in Compose Multiplatform
             implementation(libs.material.icons.extended)
-
-            implementation(libs.cmptoast)
         }
 
         iosMain.dependencies {

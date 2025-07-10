@@ -58,7 +58,6 @@ fun JokesListScreenRoot(
     onOpenPreferences: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val context = LocalContext.current
     val snackbarManager = koinInject<SnackbarManager>()
 
     LaunchedEffect(Unit) {
