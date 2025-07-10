@@ -1,4 +1,4 @@
-package com.droidcon.simplejokes.core.presentation.utils
+package com.droidcon.simplejokes.core.presentation
 
 import android.app.Activity
 import androidx.compose.runtime.Composable
