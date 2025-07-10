@@ -3,6 +3,7 @@ package com.droidcon.simplejokes.di
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.droidcon.simplejokes.core.data.PreferencesDataSourceImpl
 import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
+import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import com.droidcon.simplejokes.jokes.data.JokesRepositoryImpl
 import com.droidcon.simplejokes.jokes.data.database.JokesDao
 import com.droidcon.simplejokes.jokes.data.database.JokesDatabase
@@ -32,6 +33,8 @@ import org.koin.dsl.module
 expect val platformModule: Module
 
 val sharedModule = module {
+
+    single { SnackbarManager() }
 
     // API
     single<HttpClient> {

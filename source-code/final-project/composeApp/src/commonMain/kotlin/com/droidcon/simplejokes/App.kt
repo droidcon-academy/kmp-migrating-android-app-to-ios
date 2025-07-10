@@ -4,13 +4,13 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
 import com.droidcon.simplejokes.core.presentation.Localization
@@ -26,53 +26,72 @@ import org.koin.compose.koinInject
 import org.koin.core.annotation.KoinExperimentalAPI
 import org.koin.dsl.KoinConfiguration
 
+
 @OptIn(KoinExperimentalAPI::class)
 @Composable
 @Preview
 fun App() {
-    val coroutineScope = rememberCoroutineScope()
-
     KoinMultiplatformApplication(
         config = KoinConfiguration {
-            modules(
-                snackbarModule(coroutineScope),
-                sharedModule,
-                platformModule)
+            modules(sharedModule, platformModule)
         }
     ) {
-        val preferencesDataSource = koinInject<PreferencesDataSource>()
-        val localization = koinInject<Localization>()
-
-        val themePreference by preferencesDataSource.getTheme().collectAsStateWithLifecycle("")
-        val systemIsDark = isSystemInDarkTheme() // Check system's dark theme preference
-
-        // Determine whether to use dark theme based on preference or system setting
-        val useDarkTheme = remember(themePreference, systemIsDark) {
-            when (themePreference.uppercase()) { // Normalize for "dark", "Dark", "DARK"
-                "DARK" -> true
-                "LIGHT" -> false
-                else -> systemIsDark // Fallback to system theme
-            }
-        }
-
-        MaterialTheme(colorScheme = if (useDarkTheme) darkColorScheme() else lightColorScheme()) {
-            SetSystemBarAppearance(darkTheme = useDarkTheme)
-
-            LaunchedEffect(Unit) {
-                preferencesDataSource.getLanguage()
-                    .distinctUntilChanged()
-                    .collect { savedLanguageTag ->
-                        localization.updateLocale(savedLanguageTag)
-                    }
-            }
-
-            val snackbarManager = koinInject<SnackbarManager>()
-
-            Scaffold(
-                snackbarHost = { SnackbarHost(hostState = snackbarManager.snackbarHostState) }
-            ) {
-                NavigationRoot()
+        JokesAppTheme {
+            AppEffectHost { snackbarHostState ->
+                Scaffold(
+                    snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+                ) {
+                    NavigationRoot()
+                }
             }
         }
     }
+}
+
+@Composable
+private fun JokesAppTheme(content: @Composable () -> Unit) {
+    val preferencesDataSource = koinInject<PreferencesDataSource>()
+    val themePreference by preferencesDataSource.getTheme().collectAsStateWithLifecycle("")
+    val systemIsDark = isSystemInDarkTheme()
+
+    val useDarkTheme = remember(themePreference, systemIsDark) {
+        when (themePreference.uppercase()) {
+            "DARK" -> true
+            "LIGHT" -> false
+            else -> systemIsDark
+        }
+    }
+
+    MaterialTheme(colorScheme = if (useDarkTheme) darkColorScheme() else lightColorScheme()) {
+        SetSystemBarAppearance(darkTheme = useDarkTheme)
+        content() // Render the rest of the app inside the theme
+    }
+}
+
+@Composable
+private fun AppEffectHost(content: @Composable (snackbarHostState: SnackbarHostState) -> Unit) {
+    val localization = koinInject<Localization>()
+    val preferencesDataSource = koinInject<PreferencesDataSource>()
+    val snackbarManager = koinInject<SnackbarManager>()
+
+    val snackbarHostState = remember { SnackbarHostState() }
+
+    // Effect for handling language changes
+    LaunchedEffect(localization, preferencesDataSource) {
+        preferencesDataSource.getLanguage()
+            .distinctUntilChanged()
+            .collect { savedLanguageTag ->
+                localization.updateLocale(savedLanguageTag)
+            }
+    }
+
+    // Effect for handling snackbar messages
+    LaunchedEffect(snackbarManager) {
+        snackbarManager.messages.collect { message ->
+            snackbarHostState.showSnackbar(message)
+        }
+    }
+
+    // Render the content, passing down the snackbar state
+    content(snackbarHostState)
 }

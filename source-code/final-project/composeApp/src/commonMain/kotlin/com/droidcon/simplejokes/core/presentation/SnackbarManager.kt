@@ -1,17 +1,13 @@
 package com.droidcon.simplejokes.core.presentation
 
-import androidx.compose.material3.SnackbarHostState
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 
-class SnackbarManager(
-    private val coroutineScope: CoroutineScope
-) {
-    val snackbarHostState = SnackbarHostState()
+class SnackbarManager {
+    private val _messages = MutableSharedFlow<String>()
+    val messages = _messages.asSharedFlow()
 
-    fun showMessage(message: String) {
-        coroutineScope.launch {
-            snackbarHostState.showSnackbar(message)
-        }
+    suspend fun showMessage(message: String) {
+        _messages.emit(message)
     }
 }
