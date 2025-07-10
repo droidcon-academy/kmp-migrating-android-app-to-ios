@@ -1,15 +1,32 @@
 package com.droidcon.simplejokes
 
 import android.app.Application
-import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
+import com.droidcon.simplejokes.di.databaseModule
+import com.droidcon.simplejokes.di.jokesRepositoryModule
+import com.droidcon.simplejokes.di.localizationModule
+import com.droidcon.simplejokes.di.networkModule
+import com.droidcon.simplejokes.di.preferencesModule
+import com.droidcon.simplejokes.di.vaultModule
+import com.droidcon.simplejokes.di.viewModelsModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.core.context.GlobalContext.startKoin
 
-@HiltAndroidApp
 class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Timber.Forest.plant(Timber.DebugTree())
-    }
 
+        startKoin {
+            androidContext(this@MyApplication)
+            modules(
+                databaseModule,
+                jokesRepositoryModule,
+                localizationModule,
+                networkModule,
+                preferencesModule,
+                vaultModule,
+                viewModelsModule
+            )
+        }
+    }
 }

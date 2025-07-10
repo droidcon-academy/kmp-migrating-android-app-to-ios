@@ -1,39 +1,54 @@
 package com.droidcon.simplejokes.di
 
 import com.droidcon.simplejokes.jokes.data.network.JokesApiService
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
-import dagger.hilt.components.SingletonComponent
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.HttpClientEngine
+import io.ktor.client.engine.okhttp.OkHttp
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.defaultRequest
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.ContentType
+import io.ktor.http.contentType
+import io.ktor.http.takeFrom
+import io.ktor.serialization.kotlinx.json.json
+import kotlinx.serialization.json.Json
+import org.koin.dsl.module
 
-@Module
-@InstallIn(SingletonComponent::class)
-object NetworkModule {
 
-    @Provides
-    @Singleton
-    fun provideGson(): Gson {
-        return GsonBuilder()
-            .create()
+val networkModule = module {
+    single<HttpClientEngine> {
+        OkHttp.create()
     }
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(gson: Gson): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl("https://official-joke-api.appspot.com")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-    }
+    single<HttpClient> {
+        HttpClient(engine = get()) {
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true // Be resilient to new fields in the JSON
+                    prettyPrint = true       // Useful for logging
+                    isLenient = true         // Be lenient to no-compliant JSON features
 
-    @Provides
-    @Singleton
-    fun provideJokesApiService(retrofit: Retrofit): JokesApiService {
-        return retrofit.create(JokesApiService::class.java)
+                })
+            }
+
+            install(Logging) {
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        co.touchlab.kermit.Logger.d(message)
+                    }
+                }
+                level = LogLevel.ALL
+            }
+
+            defaultRequest {
+                contentType(ContentType.Application.Json)
+                url {
+                    takeFrom("https://official-joke-api.appspot.com")
+                }
+            }
+        }
     }
+    single { JokesApiService(get()) }
 }

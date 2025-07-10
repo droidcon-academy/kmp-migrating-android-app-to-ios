@@ -1,20 +1,22 @@
 package com.droidcon.simplejokes.jokes.data
 
+import co.touchlab.kermit.Logger
 import com.droidcon.simplejokes.jokes.data.database.JokesDao
 import com.droidcon.simplejokes.jokes.data.mappers.toEntity
 import com.droidcon.simplejokes.jokes.data.mappers.toJoke
 import com.droidcon.simplejokes.jokes.data.network.JokesApiService
 import com.droidcon.simplejokes.jokes.domain.JokesRepository
 import com.droidcon.simplejokes.jokes.domain.model.Joke
-import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import timber.log.Timber
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
 
 /**
  * Repository implementation for jokes data with offline-first approach.
  */
-class JokesRepositoryImpl @Inject constructor(
+@OptIn(ExperimentalTime::class)
+class JokesRepositoryImpl(
     private val apiService: JokesApiService,
     private val database: JokesDao
 ) : JokesRepository {
@@ -32,7 +34,7 @@ class JokesRepositoryImpl @Inject constructor(
      */
     override suspend fun fetchJokesFromApi(): Result<Unit> {
         return runCatching {
-            val startTime = System.currentTimeMillis()
+            val startTime = Clock.System.now()
 
             // Get favorite jokes IDs to preserve them
             val favoriteJokesIds = database.getFavoriteJokesIds()
@@ -54,10 +56,10 @@ class JokesRepositoryImpl @Inject constructor(
             // Upsert new jokes
             database.upsertJokes(jokesToUpsert)
 
-            val endTime = System.currentTimeMillis()
+            val endTime = Clock.System.now()
             val elapsedTime = endTime - startTime
 
-            Timber.Forest.tag("JokesRepository").d("Successfully updated database with ${remoteJokes.size} jokes in $elapsedTime ms")
+            Logger.d(tag ="JokesRepository", messageString =  "Successfully updated database with ${remoteJokes.size} jokes in $elapsedTime ms")
         }
     }
 

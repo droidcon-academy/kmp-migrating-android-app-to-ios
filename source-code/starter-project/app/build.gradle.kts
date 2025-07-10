@@ -3,8 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
 
-    alias(libs.plugins.kotlin.kapt)
-    alias(libs.plugins.hilt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.jetbrains.kotlin.serialization)
 }
 
@@ -62,14 +61,12 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
 
-    // Timber
-    implementation(libs.timber)
+    // Logging
+    implementation(libs.kermit)
 
-    // Hilt
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.androidx.hilt.navigation.fragment)
+    // Koin
+    implementation(libs.bundles.koin)
+    implementation(libs.bundles.koin.compose)
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
@@ -78,7 +75,7 @@ dependencies {
     // Room
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-    kapt(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 
     // DataStore Preferences
@@ -86,13 +83,8 @@ dependencies {
     implementation(libs.datastore)
 
     // Network
-    implementation(libs.retrofit)
-    implementation(libs.okhttp)
-    implementation(libs.logging.interceptor)
-
-    // allow for simple json conversion
-    implementation(libs.gson)
-    implementation(libs.converter.gson)
+    implementation(libs.bundles.ktor)
+    implementation(libs.ktor.client.okhttp)
 
     // Compatibility Library used for switching languages in android versions lower than 33
     // https://github.com/sunildhiman90/SocialMediaFeed-JetpackCompose/tree/multi-language-support
