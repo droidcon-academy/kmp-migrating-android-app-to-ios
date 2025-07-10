@@ -18,7 +18,6 @@ import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
 import com.droidcon.simplejokes.di.platformModule
 import com.droidcon.simplejokes.di.sharedModule
-import com.droidcon.simplejokes.di.snackbarModule
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinMultiplatformApplication
