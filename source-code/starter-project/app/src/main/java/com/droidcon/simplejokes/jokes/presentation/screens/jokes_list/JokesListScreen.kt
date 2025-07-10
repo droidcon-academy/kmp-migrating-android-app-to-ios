@@ -1,6 +1,5 @@
 package com.droidcon.simplejokes.jokes.presentation.screens.jokes_list
 
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -46,7 +45,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.R
+import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import org.koin.androidx.compose.koinViewModel
+import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,6 +59,7 @@ fun JokesListScreenRoot(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val context = LocalContext.current
+    val snackbarManager = koinInject<SnackbarManager>()
 
     LaunchedEffect(Unit) {
         viewModel.eventChannel.collect {
@@ -67,7 +69,7 @@ fun JokesListScreenRoot(
                 }
 
                 is JokesListEvent.ShowError -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+                    snackbarManager.showMessage(it.message)
                 }
             }
         }

@@ -1,21 +1,27 @@
 package com.droidcon.simplejokes
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
 import com.droidcon.simplejokes.core.presentation.Localization
-import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
+import com.droidcon.simplejokes.core.presentation.SetSystemBarAppearance
+import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import com.droidcon.simplejokes.di.databaseModule
 import com.droidcon.simplejokes.di.jokesRepositoryModule
 import com.droidcon.simplejokes.di.localizationModule
 import com.droidcon.simplejokes.di.networkModule
 import com.droidcon.simplejokes.di.preferencesModule
+import com.droidcon.simplejokes.di.snackbarModule
 import com.droidcon.simplejokes.di.vaultModule
 import com.droidcon.simplejokes.di.viewModelsModule
 import com.droidcon.simplejokes.ui.theme.SimpleJokesTheme
@@ -26,14 +32,18 @@ import org.koin.compose.koinInject
 
 class MainActivity : AppCompatActivity() {
 
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
         setContent {
+            val coroutineScope = rememberCoroutineScope()
+
             KoinApplication(application = {
                 androidContext(this@MainActivity.applicationContext)
                 modules(
+                    snackbarModule(coroutineScope),
                     databaseModule,
                     jokesRepositoryModule,
                     localizationModule,
@@ -65,7 +75,13 @@ class MainActivity : AppCompatActivity() {
                             }
                     }
 
-                    NavigationRoot()
+                    val snackbarManager = koinInject<SnackbarManager>()
+
+                    Scaffold(
+                        snackbarHost = { SnackbarHost(hostState = snackbarManager.snackbarHostState) }
+                    ) {
+                        NavigationRoot()
+                    }
                 }
             }
         }
