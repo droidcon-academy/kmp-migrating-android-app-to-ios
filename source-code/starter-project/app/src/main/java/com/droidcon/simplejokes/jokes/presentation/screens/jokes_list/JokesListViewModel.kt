@@ -3,6 +3,7 @@ package com.droidcon.simplejokes.jokes.presentation.screens.jokes_list
 import androidx.compose.runtime.Immutable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import com.droidcon.simplejokes.jokes.domain.JokesRepository
 import com.droidcon.simplejokes.jokes.domain.model.Joke
 import kotlinx.coroutines.channels.Channel
@@ -36,7 +37,7 @@ sealed interface JokesListEvent {
  */
 class JokesListViewModel(
     private val repository: JokesRepository,
-
+    private val snackbarManager: SnackbarManager
     ): ViewModel() {
 
     // The rest of the implementation remains the same
@@ -128,5 +129,9 @@ class JokesListViewModel(
                     setLoading(false, viaRefresh)
                 }
         }
+    }
+
+    suspend fun snackbarMessage(message: String) {
+        snackbarManager.showMessage(message)
     }
 }

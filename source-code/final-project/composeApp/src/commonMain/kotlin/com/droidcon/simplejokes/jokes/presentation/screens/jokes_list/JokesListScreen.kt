@@ -42,9 +42,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import org.jetbrains.compose.resources.stringResource
-import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import simplejokes.composeapp.generated.resources.Res
 import simplejokes.composeapp.generated.resources.jokes_list_title
@@ -61,7 +59,6 @@ fun JokesListScreenRoot(
     onOpenPreferences: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val snackbarManager = koinInject<SnackbarManager>()
 
     LaunchedEffect(Unit) {
         viewModel.eventChannel.collect {
@@ -71,7 +68,7 @@ fun JokesListScreenRoot(
                 }
 
                 is JokesListEvent.ShowError -> {
-                    snackbarManager.showMessage(it.message)
+                    viewModel.snackbarMessage(it.message)
                 }
             }
         }

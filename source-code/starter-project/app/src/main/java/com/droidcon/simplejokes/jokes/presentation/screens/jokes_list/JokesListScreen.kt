@@ -44,9 +44,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.R
-import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import org.koin.androidx.compose.koinViewModel
-import org.koin.compose.koinInject
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,7 +55,6 @@ fun JokesListScreenRoot(
     onOpenPreferences: () -> Unit,
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    val snackbarManager = koinInject<SnackbarManager>()
 
     LaunchedEffect(Unit) {
         viewModel.eventChannel.collect {
@@ -67,7 +64,7 @@ fun JokesListScreenRoot(
                 }
 
                 is JokesListEvent.ShowError -> {
-                    snackbarManager.showMessage(it.message)
+                    viewModel.snackbarMessage(it.message)
                 }
             }
         }
