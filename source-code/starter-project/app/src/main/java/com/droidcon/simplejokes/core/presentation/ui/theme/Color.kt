@@ -1,4 +1,4 @@
-package com.droidcon.simplejokes.ui.theme
+package com.droidcon.simplejokes.core.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
