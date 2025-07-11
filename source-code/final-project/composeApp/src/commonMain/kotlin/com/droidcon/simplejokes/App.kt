@@ -1,9 +1,6 @@
 package com.droidcon.simplejokes
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -14,6 +11,7 @@ import com.droidcon.simplejokes.core.presentation.Localization
 import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
 import com.droidcon.simplejokes.di.platformModule
 import com.droidcon.simplejokes.di.sharedModule
+import com.droidcon.simplejokes.ui.theme.SimpleJokesTheme
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinMultiplatformApplication
@@ -45,7 +43,7 @@ fun App() {
             }
         }
 
-        MaterialTheme(colorScheme = if (useDarkTheme) darkColorScheme() else lightColorScheme()) {
+        SimpleJokesTheme(darkTheme = useDarkTheme) {
             SetSystemBarAppearance(darkTheme = useDarkTheme)
 
             LaunchedEffect(Unit) {
