@@ -18,18 +18,8 @@ import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
 import com.droidcon.simplejokes.core.presentation.Localization
 import com.droidcon.simplejokes.core.presentation.SetSystemBarAppearance
 import com.droidcon.simplejokes.core.presentation.SnackbarManager
-import com.droidcon.simplejokes.di.databaseModule
-import com.droidcon.simplejokes.di.jokesRepositoryModule
-import com.droidcon.simplejokes.di.localizationModule
-import com.droidcon.simplejokes.di.networkModule
-import com.droidcon.simplejokes.di.preferencesModule
-import com.droidcon.simplejokes.di.snackbarModule
-import com.droidcon.simplejokes.di.vaultModule
-import com.droidcon.simplejokes.di.viewModelsModule
 import com.droidcon.simplejokes.core.presentation.ui.theme.SimpleJokesTheme
 import kotlinx.coroutines.flow.distinctUntilChanged
-import org.koin.android.ext.koin.androidContext
-import org.koin.compose.KoinApplication
 import org.koin.compose.koinInject
 
 class MainActivity : AppCompatActivity() {
@@ -40,26 +30,12 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
 
         setContent {
-            KoinApplication(application = {
-                androidContext(this@MainActivity.applicationContext)
-                modules(
-                    databaseModule,
-                    jokesRepositoryModule,
-                    localizationModule,
-                    networkModule,
-                    preferencesModule,
-                    snackbarModule,
-                    vaultModule,
-                    viewModelsModule
-                )
-            }) {
-                JokesAppTheme {
-                    AppEffectHost { snackbarHostState ->
-                        Scaffold(
-                            snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
-                        ) {
-                            NavigationRoot()
-                        }
+            JokesAppTheme {
+                AppEffectHost { snackbarHostState ->
+                    Scaffold(
+                        snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
+                    ) {
+                        NavigationRoot()
                     }
                 }
             }
