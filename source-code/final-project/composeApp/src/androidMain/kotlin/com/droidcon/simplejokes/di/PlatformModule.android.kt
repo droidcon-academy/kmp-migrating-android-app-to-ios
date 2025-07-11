@@ -1,7 +1,5 @@
 package com.droidcon.simplejokes.di
 
-import com.droidcon.simplejokes.core.data.Vault
-import com.droidcon.simplejokes.core.presentation.Localization
 import com.droidcon.simplejokes.jokes.data.database.JokesDatabaseFactory
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
@@ -14,14 +12,6 @@ actual val platformModule: Module
 
         single<HttpClientEngine> {
             OkHttp.create()
-        }
-
-        single<Vault> {
-            Vault(androidApplication())
-        }
-
-        single<Localization> {
-            Localization(androidApplication())
         }
 
         single { JokesDatabaseFactory(androidApplication()) }

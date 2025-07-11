@@ -14,8 +14,15 @@ import com.droidcon.simplejokes.core.presentation.Localization
 import com.droidcon.simplejokes.core.presentation.SnackbarManager
 import com.droidcon.simplejokes.core.presentation.ui.theme.SimpleJokesTheme
 import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
+import com.droidcon.simplejokes.di.databaseModule
+import com.droidcon.simplejokes.di.jokesRepositoryModule
+import com.droidcon.simplejokes.di.localizationsModule
+import com.droidcon.simplejokes.di.networkModule
 import com.droidcon.simplejokes.di.platformModule
-import com.droidcon.simplejokes.di.sharedModule
+import com.droidcon.simplejokes.di.preferencesModule
+import com.droidcon.simplejokes.di.snackbarModule
+import com.droidcon.simplejokes.di.vaultModule
+import com.droidcon.simplejokes.di.viewModelsModule
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinMultiplatformApplication
@@ -30,7 +37,17 @@ import org.koin.dsl.KoinConfiguration
 fun App() {
     KoinMultiplatformApplication(
         config = KoinConfiguration {
-            modules(sharedModule, platformModule)
+            modules(
+                databaseModule,
+                jokesRepositoryModule,
+                localizationsModule,
+                networkModule,
+                preferencesModule,
+                snackbarModule,
+                vaultModule,
+                viewModelsModule,
+                platformModule // platform only module
+            )
         }
     ) {
         JokesAppTheme {
