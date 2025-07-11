@@ -1,12 +1,9 @@
 package com.droidcon.simplejokes
 
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
-import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -15,6 +12,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.droidcon.simplejokes.core.domain.datasource.PreferencesDataSource
 import com.droidcon.simplejokes.core.presentation.Localization
 import com.droidcon.simplejokes.core.presentation.SnackbarManager
+import com.droidcon.simplejokes.core.presentation.ui.theme.SimpleJokesTheme
 import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
 import com.droidcon.simplejokes.di.platformModule
 import com.droidcon.simplejokes.di.sharedModule
@@ -61,7 +59,7 @@ private fun JokesAppTheme(content: @Composable () -> Unit) {
         }
     }
 
-    MaterialTheme(colorScheme = if (useDarkTheme) darkColorScheme() else lightColorScheme()) {
+    SimpleJokesTheme(darkTheme = useDarkTheme) {
         SetSystemBarAppearance(darkTheme = useDarkTheme)
         content() // Render the rest of the app inside the theme
     }

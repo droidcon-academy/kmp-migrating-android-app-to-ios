@@ -26,7 +26,7 @@ import com.droidcon.simplejokes.di.preferencesModule
 import com.droidcon.simplejokes.di.snackbarModule
 import com.droidcon.simplejokes.di.vaultModule
 import com.droidcon.simplejokes.di.viewModelsModule
-import com.droidcon.simplejokes.ui.theme.SimpleJokesTheme
+import com.droidcon.simplejokes.core.presentation.ui.theme.SimpleJokesTheme
 import kotlinx.coroutines.flow.distinctUntilChanged
 import org.koin.android.ext.koin.androidContext
 import org.koin.compose.KoinApplication
