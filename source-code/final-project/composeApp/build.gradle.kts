@@ -42,8 +42,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
 
             // DI
-            implementation(libs.koin.android)
-            implementation(libs.koin.androidx.compose)
+            implementation(libs.bundles.koin.android)
 
             // HttpClient
             implementation(libs.ktor.client.okhttp)
@@ -67,9 +66,7 @@ kotlin {
             implementation(libs.sqlite.bundled)
 
             // DI
-            implementation(libs.koin.compose)
-            implementation(libs.koin.compose.viewmodel)
-            api(libs.koin.core)
+            implementation(libs.bundles.koin)
 
             // Network
             implementation(libs.bundles.ktor)

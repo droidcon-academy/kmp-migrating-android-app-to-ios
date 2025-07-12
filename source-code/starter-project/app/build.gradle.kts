@@ -66,7 +66,6 @@ dependencies {
 
     // Koin
     implementation(libs.bundles.koin)
-    implementation(libs.bundles.koin.compose)
 
     // Navigation
     implementation(libs.navigation.compose)

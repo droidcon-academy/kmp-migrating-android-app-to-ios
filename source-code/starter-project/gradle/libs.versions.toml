@@ -99,5 +99,9 @@ ktor = [
     "ktor-serialization-kotlinx-json"
 ]
 
-koin = ["koin-core", "koin-android", "koin-android-workmanager"]
-koin-compose = ["koin-core", "koin-android", "koin-android-workmanager", "koin-androidx-compose"]
+koin = [
+    "koin-core",
+    "koin-android",
+    "koin-androidx-compose",
+    "koin-android-workmanager"
+]
