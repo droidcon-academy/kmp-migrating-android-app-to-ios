@@ -72,7 +72,7 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.fragment)
 
     // Navigation
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.navigation.compose)
     implementation(libs.kotlinx.serialization.json)
 
     // Room
