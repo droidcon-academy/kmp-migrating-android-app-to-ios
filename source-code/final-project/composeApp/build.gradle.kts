@@ -59,7 +59,7 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
             // Navigation
-            implementation(libs.jetbrains.compose.navigation)
+            implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
 
             // Database
