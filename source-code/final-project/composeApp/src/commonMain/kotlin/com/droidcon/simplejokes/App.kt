@@ -16,7 +16,7 @@ import com.droidcon.simplejokes.core.presentation.ui.theme.SimpleJokesTheme
 import com.droidcon.simplejokes.core.presentation.utils.SetSystemBarAppearance
 import com.droidcon.simplejokes.di.databaseModule
 import com.droidcon.simplejokes.di.jokesRepositoryModule
-import com.droidcon.simplejokes.di.localizationsModule
+import com.droidcon.simplejokes.di.localizationModule
 import com.droidcon.simplejokes.di.networkModule
 import com.droidcon.simplejokes.di.platformModule
 import com.droidcon.simplejokes.di.preferencesModule
@@ -40,7 +40,7 @@ fun App() {
             modules(
                 databaseModule,
                 jokesRepositoryModule,
-                localizationsModule,
+                localizationModule,
                 networkModule,
                 preferencesModule,
                 snackbarModule,
