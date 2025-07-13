@@ -54,9 +54,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // Coil
-    implementation(libs.coil.compose)
-
     // Timber
     implementation(libs.timber)
 
@@ -74,7 +71,6 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
     kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
     // DataStore Preferences
     implementation(libs.datastore.preferences)
