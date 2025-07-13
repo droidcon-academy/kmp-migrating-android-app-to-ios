@@ -57,26 +57,26 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
+            // Logging
+            implementation(libs.kermit)
+
+            // Koin
+            implementation(libs.bundles.koin)
+
             // Navigation
             implementation(libs.navigation.compose)
             implementation(libs.kotlinx.serialization.json)
 
-            // Database
+            // Room
             implementation(libs.androidx.room.runtime)
             implementation(libs.sqlite.bundled)
 
-            // DI
-            implementation(libs.bundles.koin)
+            // DataStore Preferences
+            implementation(libs.datastore.preferences)
+            implementation(libs.datastore)
 
             // Network
             implementation(libs.bundles.ktor)
-
-            // Logging
-            implementation(libs.kermit)
-
-            // DataStore Preferences
-            implementation(libs.datastore)
-            implementation(libs.datastore.preferences)
 
             // Enable Icons for Material3 Design in Compose Multiplatform
             implementation(libs.material.icons.extended)
