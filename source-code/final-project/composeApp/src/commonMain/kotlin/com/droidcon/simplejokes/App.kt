@@ -50,7 +50,7 @@ fun App() {
             )
         }
     ) {
-        JokesAppTheme {
+        JokesThemeManager {
             AppEffectHost { snackbarHostState ->
                 Scaffold(
                     snackbarHost = { SnackbarHost(hostState = snackbarHostState) }
@@ -63,7 +63,7 @@ fun App() {
 }
 
 @Composable
-private fun JokesAppTheme(content: @Composable () -> Unit) {
+private fun JokesThemeManager(content: @Composable () -> Unit) {
     val preferencesDataSource = koinInject<PreferencesDataSource>()
     val themePreference by preferencesDataSource.getTheme().collectAsStateWithLifecycle("")
     val systemIsDark = isSystemInDarkTheme()
