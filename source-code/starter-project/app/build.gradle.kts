@@ -41,11 +41,6 @@ android {
     buildFeatures {
         compose = true
     }
-
-    androidResources {
-        // https://medium.com/@mohaberabi98/localization-in-compose-multiplatform-a53dccf49327
-        generateLocaleConfig = true
-    }
 }
 
 dependencies {
