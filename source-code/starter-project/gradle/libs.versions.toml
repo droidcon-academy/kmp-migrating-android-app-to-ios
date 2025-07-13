@@ -9,17 +9,16 @@ lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2025.06.01"
 
-ktor = "3.2.1"
-room = "2.7.2"
-datastore = "1.1.7"
+koin = "4.1.0"
 navigationCompose = "2.9.0-beta03"
+ktor = "3.2.1"
+ksp = "2.2.0-2.0.2"
+datastore = "1.1.7"
+room = "2.7.2"
 kotlinxSerializationJson = "1.9.0"
-kotlinxSerialization = "2.2.0"
 kermit = "2.0.6"
 coilCompose = "2.7.0"
 appcompat = "1.7.1"
-ksp = "2.2.0-2.0.2"
-koin = "4.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -85,7 +84,7 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 
 #serialization
-jetbrains-kotlin-serialization = { id ="org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinxSerialization"}
+jetbrains-kotlin-serialization = { id ="org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
 
 
 [bundles]
