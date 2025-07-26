@@ -36,7 +36,7 @@ val networkModule = module {
             install(Logging) {
                 logger = object : Logger {
                     override fun log(message: String) {
-                        co.touchlab.kermit.Logger.d(message)
+                       Timber.d(message)
                     }
                 }
                 level = LogLevel.ALL

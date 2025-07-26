@@ -1,6 +1,8 @@
 package com.droidcon.simplejokes.di
 
-import com.droidcon.simplejokes.jokes.data.database.JokesDatabaseFactory
+import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.droidcon.simplejokes.jokes.data.database.JokesDatabase
 import io.ktor.client.engine.HttpClientEngine
 import io.ktor.client.engine.okhttp.OkHttp
 import org.koin.android.ext.koin.androidApplication
@@ -10,6 +12,4 @@ actual val platformModule = module {
     single<HttpClientEngine> {
         OkHttp.create()
     }
-
-    single { JokesDatabaseFactory(androidApplication()) }
 }
